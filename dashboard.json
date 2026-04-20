@@ -1,0 +1,259 @@
+{
+  "generated_at": "2026-04-20T23:47:20+00:00Z",
+  "month_name": "April 2026",
+  "day_in_month": "20/30",
+  "working_days": {
+    "elapsed": 14,
+    "total": 22,
+    "left": 8,
+    "pct_time": 0.636
+  },
+  "totals": {
+    "videos": 249,
+    "variations": 302,
+    "street_style": 2,
+    "memorial_day": 27,
+    "weed": 10,
+    "gen_z": 11,
+    "old_demo_seniors": 8,
+    "pen_paper_ipad": 1,
+    "warehouse_egc": 3,
+    "shotgun": 6,
+    "mothers_day": 3,
+    "ryze_birthday": 4,
+    "statics": 194
+  },
+  "today_adds": {
+    "videos": 12,
+    "statics": 21,
+    "variations": 40
+  },
+  "goals": [
+    {
+      "key": "videos",
+      "label": "Videos",
+      "current": 249,
+      "target": 370,
+      "pct": 67,
+      "status": "on"
+    },
+    {
+      "key": "variations",
+      "label": "Variations",
+      "current": 302,
+      "target": 200,
+      "pct": 151,
+      "status": "done"
+    },
+    {
+      "key": "statics",
+      "label": "Statics",
+      "current": 194,
+      "target": 50,
+      "pct": 388,
+      "status": "done"
+    }
+  ],
+  "categories": [
+    {
+      "key": "old_demo_seniors",
+      "label": "Old Demo (seniors)",
+      "current": 8,
+      "target": 15,
+      "pct": 53,
+      "status": "on"
+    },
+    {
+      "key": "gen_z",
+      "label": "Gen Z",
+      "current": 11,
+      "target": 20,
+      "pct": 55,
+      "status": "on"
+    }
+  ],
+  "seasonal": [
+    {
+      "key": "ryze_birthday",
+      "label": "RYZE Birthday",
+      "current": 4,
+      "target": 4,
+      "pct": 100,
+      "status": "done"
+    },
+    {
+      "key": "memorial_day",
+      "label": "Memorial Day",
+      "current": 27,
+      "target": 15,
+      "pct": 180,
+      "status": "done"
+    }
+  ],
+  "leaderboard": [
+    {
+      "name": "COPY_2_Nina Popovski",
+      "videos": 18,
+      "statics": 157,
+      "variations": 18,
+      "total": 193,
+      "today": {
+        "videos": 2,
+        "statics": 21,
+        "variations": 2
+      }
+    },
+    {
+      "name": "COPY_6_Fotis",
+      "videos": 20,
+      "statics": 3,
+      "variations": 100,
+      "total": 123,
+      "today": {
+        "videos": 3,
+        "statics": 0,
+        "variations": 35
+      }
+    },
+    {
+      "name": "COPY_8_Airidas",
+      "videos": 49,
+      "statics": 3,
+      "variations": 22,
+      "total": 74,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_3_Tristan",
+      "videos": 28,
+      "statics": 1,
+      "variations": 42,
+      "total": 71,
+      "today": {
+        "videos": 3,
+        "statics": 0,
+        "variations": 3
+      }
+    },
+    {
+      "name": "COPY_13_IASON",
+      "videos": 15,
+      "statics": 0,
+      "variations": 37,
+      "total": 52,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_10_AI_PAULIUS",
+      "videos": 33,
+      "statics": 0,
+      "variations": 18,
+      "total": 51,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_14_ANDREA",
+      "videos": 11,
+      "statics": 1,
+      "variations": 30,
+      "total": 42,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_1_Sean",
+      "videos": 16,
+      "statics": 16,
+      "variations": 5,
+      "total": 37,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_4_Zach",
+      "videos": 17,
+      "statics": 5,
+      "variations": 10,
+      "total": 32,
+      "today": {
+        "videos": 3,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_7_Dr Ivan",
+      "videos": 15,
+      "statics": 0,
+      "variations": 12,
+      "total": 27,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_5_Adrian",
+      "videos": 20,
+      "statics": 0,
+      "variations": 2,
+      "total": 22,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "(Unassigned)",
+      "videos": 3,
+      "statics": 8,
+      "variations": 2,
+      "total": 13,
+      "today": {
+        "videos": 1,
+        "statics": 0,
+        "variations": 0
+      }
+    },
+    {
+      "name": "COPY_15_OLIVER",
+      "videos": 4,
+      "statics": 0,
+      "variations": 4,
+      "total": 8,
+      "today": {
+        "videos": 0,
+        "statics": 0,
+        "variations": 0
+      }
+    }
+  ],
+  "mvp": {
+    "name": "COPY_6_Fotis",
+    "videos": 3,
+    "statics": 0,
+    "variations": 35
+  },
+  "behind_pace": [],
+  "ledger_size": 443
+}

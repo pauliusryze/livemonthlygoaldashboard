@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>RYZE · Monthly Goal Dashboard</title>
+  <style>
+    :root {
+      --bg: #0b0d12;
+      --panel: #151822;
+      --panel-2: #1b1f2b;
+      --border: #262b3a;
+      --text: #e7ecf3;
+      --text-dim: #8a93a6;
+      --accent: #ffb84d;
+      --green: #35d48a;
+      --red: #ff5d5d;
+      --yellow: #f4cf49;
+      --blue: #6cb4ff;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Inter", "Helvetica Neue", sans-serif;
+      background: var(--bg); color: var(--text);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 32px 24px 80px; }
+    header { display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 8px; gap: 16px; flex-wrap: wrap; }
+    h1 { font-size: 28px; font-weight: 700; margin: 0; letter-spacing: -0.02em; }
+    h1 .accent { color: var(--accent); }
+    .sub { color: var(--text-dim); font-size: 14px; }
+    .age { font-size: 12px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+    .hero { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin: 16px 0 24px; }
+    .hero-row { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .hero-stat { flex: 1 1 200px; }
+    .hero-stat .n { font-size: 36px; font-weight: 700; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+    .hero-stat .l { font-size: 13px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.08em; }
+    .hero-time-bar { height: 10px; background: var(--panel-2); border-radius: 6px; overflow: hidden; margin-top: 4px; border: 1px solid var(--border); }
+    .hero-time-bar > i { display: block; height: 100%; background: linear-gradient(90deg, var(--accent), var(--yellow)); border-radius: 6px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 20px; }
+    .card h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-dim); margin: 0 0 14px; font-weight: 600; }
+
+    .goal { margin-bottom: 14px; }
+    .goal:last-child { margin-bottom: 0; }
+    .goal-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; }
+    .goal-label { font-weight: 600; font-size: 15px; }
+    .goal-vals { font-size: 13px; color: var(--text-dim); font-variant-numeric: tabular-nums; }
+    .goal-vals .now { color: var(--text); font-weight: 600; }
+    .bar { height: 8px; background: var(--panel-2); border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
+    .bar > i { display: block; height: 100%; border-radius: 6px; transition: width .4s; }
+    .bar.done > i { background: linear-gradient(90deg, var(--green), #2ab77a); }
+    .bar.on   > i { background: linear-gradient(90deg, var(--yellow), var(--accent)); }
+    .bar.behind > i { background: linear-gradient(90deg, var(--red), #c44); }
+
+    .pill { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 999px; margin-left: 6px; vertical-align: middle; }
+    .pill.done { background: rgba(53, 212, 138, 0.15); color: var(--green); }
+    .pill.on   { background: rgba(244, 207, 73, 0.15); color: var(--yellow); }
+    .pill.behind { background: rgba(255, 93, 93, 0.15); color: var(--red); }
+
+    /* Leaderboard */
+    table.lb { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+    table.lb th, table.lb td { text-align: left; padding: 8px 10px; font-size: 13px; border-bottom: 1px solid var(--border); }
+    table.lb th { color: var(--text-dim); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; }
+    table.lb td.num { text-align: right; font-weight: 600; }
+    table.lb tr:last-child td { border-bottom: 0; }
+    table.lb tr:hover td { background: rgba(255,255,255,0.02); }
+    .rank { font-weight: 700; color: var(--text-dim); width: 28px; }
+    .rank.rank-1 { color: var(--accent); }
+    .rank.rank-2 { color: #c0c7d4; }
+    .rank.rank-3 { color: #d98c5f; }
+
+    .today-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
+    .chip { background: var(--panel-2); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 13px; color: var(--text-dim); }
+    .chip b { color: var(--text); font-weight: 600; }
+
+    .mvp { background: linear-gradient(135deg, rgba(255, 184, 77, 0.15), rgba(244, 207, 73, 0.05)); border: 1px solid rgba(255, 184, 77, 0.3); padding: 14px 18px; border-radius: 12px; display: flex; gap: 12px; align-items: center; }
+    .mvp .name { font-size: 16px; font-weight: 700; color: var(--accent); }
+    .mvp .sub { font-size: 12px; color: var(--text-dim); margin-top: 2px; }
+
+    .behind-list { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .behind-pill { background: rgba(255, 93, 93, 0.12); color: var(--red); border: 1px solid rgba(255, 93, 93, 0.3); border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 600; }
+
+    .state { padding: 40px; text-align: center; color: var(--text-dim); }
+    .state .spinner { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 12px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .err { color: var(--red); }
+    .foot { text-align: center; color: var(--text-dim); font-size: 12px; margin-top: 32px; }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <div class="state"><div class="spinner"></div>Loading dashboard…</div>
+  </div>
+
+  <script>
+    // Fetch the JSON snapshot from the same directory as this HTML.
+    // Update to raw.githubusercontent.com URL if serving from elsewhere.
+    const DATA_URL = "./dashboard.json";
+    const POLL_MS = 60 * 1000;
+
+    function $(sel, root = document) { return root.querySelector(sel); }
+
+    function ago(iso) {
+      if (!iso) return "unknown";
+      const d = new Date(iso);
+      const diff = (Date.now() - d.getTime()) / 1000;
+      if (diff < 60) return `${Math.round(diff)}s ago`;
+      if (diff < 3600) return `${Math.round(diff/60)}m ago`;
+      if (diff < 86400) return `${Math.round(diff/3600)}h ago`;
+      return `${Math.round(diff/86400)}d ago`;
+    }
+
+    function goalRow(g) {
+      const status = g.status; // done | on | behind
+      const tag = status === "done" ? "✓ done" : (status === "on" ? "on pace" : "behind");
+      return `
+        <div class="goal">
+          <div class="goal-head">
+            <div class="goal-label">${g.label} <span class="pill ${status}">${tag}</span></div>
+            <div class="goal-vals"><span class="now">${g.current}</span> / ${g.target} · ${g.pct}%</div>
+          </div>
+          <div class="bar ${status}"><i style="width:${Math.min(100, g.pct)}%"></i></div>
+        </div>`;
+    }
+
+    function render(s) {
+      const goals = (s.goals || []).map(goalRow).join("");
+      const cats = (s.categories || []).map(goalRow).join("");
+      const sale = (s.seasonal || []).map(goalRow).join("");
+      const lb = (s.leaderboard || []).slice(0, 20).map((r, i) => `
+        <tr>
+          <td class="rank rank-${i+1}">${i+1}</td>
+          <td>${escape(r.name)}</td>
+          <td class="num">${r.videos}</td>
+          <td class="num">${r.statics}</td>
+          <td class="num">${r.variations}</td>
+          <td class="num" style="color:var(--accent)">${r.total}</td>
+        </tr>
+      `).join("");
+
+      const behind = (s.behind_pace || []).map(b => `<span class="behind-pill">${escape(b)}</span>`).join("");
+      const mvp = s.mvp ? `
+        <div class="mvp">
+          <div>🏆</div>
+          <div>
+            <div class="name">${escape(s.mvp.name)}</div>
+            <div class="sub">Today: ${s.mvp.videos}v · ${s.mvp.statics}s · ${s.mvp.variations}var</div>
+          </div>
+        </div>` : `<div class="state" style="padding:16px">No MVP today — nobody has shipped yet.</div>`;
+
+      const wd = s.working_days;
+      const pctTime = Math.round((wd.pct_time || 0) * 100);
+      const today = s.today_adds || {};
+
+      document.getElementById("app").innerHTML = `
+        <header>
+          <div>
+            <h1>RYZE · <span class="accent">${escape(s.month_name || "Goal")}</span></h1>
+            <div class="sub">Day ${escape(s.day_in_month)} · ${wd.elapsed}/${wd.total} working days elapsed · ${wd.left} left · ${s.ledger_size} ads tracked</div>
+          </div>
+          <div class="age" title="${escape(s.generated_at)}">Updated ${ago(s.generated_at)} · auto-refresh ${POLL_MS/1000}s</div>
+        </header>
+
+        <section class="hero">
+          <div class="hero-row">
+            <div class="hero-stat">
+              <div class="n">${pctTime}%</div>
+              <div class="l">of working days gone</div>
+              <div class="hero-time-bar"><i style="width:${pctTime}%"></i></div>
+            </div>
+            <div class="hero-stat">
+              <div class="n">${today.videos || 0}<span style="color:var(--text-dim);font-size:18px;"> v</span> · ${today.statics || 0}<span style="color:var(--text-dim);font-size:18px;"> s</span> · ${today.variations || 0}<span style="color:var(--text-dim);font-size:18px;"> var</span></div>
+              <div class="l">Today's additions</div>
+            </div>
+            <div class="hero-stat" style="min-width:240px">${mvp}</div>
+          </div>
+          ${behind ? `<div style="margin-top:16px"><div class="sub" style="margin-bottom:6px">Behind pace:</div><div class="behind-list">${behind}</div></div>` : ""}
+        </section>
+
+        <div class="grid">
+          <div class="card">
+            <h2>📹 Videos · Variations · Statics</h2>
+            ${goals}
+          </div>
+          ${cats ? `<div class="card"><h2>🎯 Angle categories</h2>${cats}</div>` : ""}
+          ${sale ? `<div class="card"><h2>🎉 Seasonal / Sales</h2>${sale}</div>` : ""}
+          <div class="card" style="grid-column: 1 / -1">
+            <h2>🏆 Copywriter leaderboard</h2>
+            <table class="lb">
+              <thead><tr>
+                <th></th><th>Copywriter</th>
+                <th class="num">Videos</th><th class="num">Statics</th><th class="num">Variations</th><th class="num">Total</th>
+              </tr></thead>
+              <tbody>${lb}</tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="foot">Generated ${escape(s.generated_at)} · fetched from ${DATA_URL}</div>
+      `;
+    }
+
+    function renderError(msg) {
+      document.getElementById("app").innerHTML = `<div class="state err">Failed to load dashboard: ${escape(msg)}</div>`;
+    }
+
+    function escape(s) {
+      return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"})[c]);
+    }
+
+    async function load() {
+      try {
+        const r = await fetch(DATA_URL + "?t=" + Date.now(), { cache: "no-store" });
+        if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        const j = await r.json();
+        render(j);
+      } catch (e) {
+        renderError(e.message);
+      }
+    }
+    load();
+    setInterval(load, POLL_MS);
+  </script>
+</body>
+</html>
